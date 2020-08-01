@@ -1,9 +1,9 @@
 from itertools import permutations 
 n,d=map(int,input().split())
 cnt=0
-digit_arr=list(str(n))
-digit_arr.sort()
-p=permutations(digit_arr)
+arr=list(str(n))
+arr.sort()
+p=permutations(arr)
 flag=0
 m=-1
 for i in list(p):
