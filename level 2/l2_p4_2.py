@@ -1,39 +1,40 @@
-string = str(input())
-opn=['[','{',"("]
-close=[']','}',')']
-stack=[]
+s=input()
+l=[]
+flag=0
 count=0
-br=0
-sc=0
-f=0
-ob=0
-obs=0
-for i in string:
-    if i in opn:
-        stack.append(i)
-        br=br+1
-        ob=1
-        obs=0
-    elif i=='*' and ob==1:
-        sc=sc+1
-        obs=obs+1
-    elif i in close:
-        pos = close.index(i)
-        if (len(stack)>0) and (opn[pos] == stack[len(stack)-1]):
-            stack.pop()
-            if obs==0 or obs==1:
-                br=br-1
-                f=1
-            if sc>=2:
-                count = count + br
-                sc=0
-                ob=0
-                br=0
-            elif ob==1:
-                f=1
-        else:
-            f=1
-if len(stack)==0 and f==0 and count>0:
+for i in range(len(s)):
+    if(s[i]=='{' or s[i]=='[' or s[i]=='('):
+        l.append(s[i])
+        flag=1
+    if(len(l)>0):
+        if(s[i]=='}'):
+            if(l[-1]=='{'):
+                l.pop()
+                continue
+            else:
+                break
+        if(s[i]==']'):
+            if(l[-1]=='['):
+                l.pop()
+                continue
+            else:
+                break
+        if(s[i]==')'):
+            if(l[-1]=='('):
+                l.pop()
+                continue
+            else:
+                break
+        if(s[i]=='*'):
+            if(s[i+1]=='*'):
+                if(l[-1]=='(' or l[-1]=='{' or l[-1]=='['):
+                    count=count+1
+    else:
+        if(flag==1):
+            flag=0
+            break
+if(len(l)==0 and flag==1):
     print('Yes',count)
 else:
     print('No',count)
+
